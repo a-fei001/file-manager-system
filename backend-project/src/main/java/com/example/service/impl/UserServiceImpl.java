@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         return user;
     }
+    
+    @Override
+    public void updateUser(User user) {
+        userMapper.update(user);
+    }
 }

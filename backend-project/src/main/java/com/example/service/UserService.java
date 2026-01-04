@@ -39,4 +39,10 @@ public interface UserService {
      * @return 新增的用户对象
      */
     User addUser(User user);
+    
+    /**
+     * 更新用户信息（只更新用户名、密码、职称）
+     * @param user 用户对象
+     */
+    void updateUser(User user);
 }

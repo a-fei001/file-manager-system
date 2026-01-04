@@ -8,9 +8,10 @@
       <el-table-column prop="username" label="用户名称" width="180" />
       <el-table-column prop="password" label="用户密码" width="180" />
       <el-table-column prop="joinDate" label="入系统时间" width="220" :formatter="formatDate" />
-      <el-table-column label="操作" width="200">
+      <el-table-column label="操作" width="300">
         <template #default="scope">
           <el-button type="text" @click="handleView(scope.row)">查看</el-button>
+          <el-button type="text" @click="handleEdit(scope.row)">修改</el-button>
           <el-button type="text" @click="handleDelete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
@@ -62,6 +63,39 @@
         <el-button type="primary" @click="handleAddSubmit">确定</el-button>
       </template>
     </el-dialog>
+    
+    <el-dialog title="修改管理员" v-model="editDialogVisible" width="500px" :close-on-click-modal="false">
+      <el-form :model="editAdmin" label-width="120px" :rules="rules" ref="editFormRef">
+        <el-form-item label="用户ID">
+          <el-input :value="editAdmin.id" disabled />
+        </el-form-item>
+        <el-form-item label="用户名称" prop="username">
+          <el-input v-model="editAdmin.username" placeholder="请输入用户名称" />
+        </el-form-item>
+        <el-form-item label="用户密码" prop="password">
+          <el-input v-model="editAdmin.password" placeholder="请输入用户密码" />
+        </el-form-item>
+        <el-form-item label="角色">
+          <el-input value="管理员" disabled />
+        </el-form-item>
+        <el-form-item label="入系统时间">
+          <el-input :value="formatDate(editAdmin)" disabled />
+        </el-form-item>
+        <el-form-item label="部门职称" prop="description">
+          <el-input v-model="editAdmin.description" placeholder="请输入部门职称" />
+        </el-form-item>
+        <el-form-item label="操作管理员ID">
+          <el-input :value="editAdmin.adminId" disabled />
+        </el-form-item>
+        <el-form-item label="操作管理员名称">
+          <el-input :value="editAdmin.adminName" disabled />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="editDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="handleEditSubmit">确定</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -74,12 +108,24 @@ const adminList = ref([])
 const dialogVisible = ref(false)
 const currentAdmin = ref({})
 const addDialogVisible = ref(false)
+const editDialogVisible = ref(false)
 const newAdmin = ref({
   username: '',
   password: '',
   description: ''
 })
+const editAdmin = ref({
+  id: '',
+  username: '',
+  password: '',
+  description: '',
+  role: '',
+  joinDate: '',
+  adminId: '',
+  adminName: ''
+})
 const addFormRef = ref(null)
+const editFormRef = ref(null)
 
 const rules = {
   username: [{ required: true, message: '请输入用户名称', trigger: 'blur' }],
@@ -144,6 +190,20 @@ const handleAdd = () => {
   addDialogVisible.value = true
 }
 
+const handleEdit = async (row) => {
+  try {
+    const response = await http.get(`/admin/admin/${row.id}`)
+    if (response.code === 200) {
+      editAdmin.value = response.data
+      editDialogVisible.value = true
+    } else {
+      ElMessage.error(response.message)
+    }
+  } catch {
+    ElMessage.error('查询失败')
+  }
+}
+
 const handleAddSubmit = async () => {
   if (!addFormRef.value) return
   await addFormRef.value.validate(async (valid) => {
@@ -159,6 +219,26 @@ const handleAddSubmit = async () => {
         }
       } catch {
         ElMessage.error('新增失败')
+      }
+    }
+  })
+}
+
+const handleEditSubmit = async () => {
+  if (!editFormRef.value) return
+  await editFormRef.value.validate(async (valid) => {
+    if (valid) {
+      try {
+        const response = await http.put('/admin/admin', editAdmin.value)
+        if (response.code === 200) {
+          ElMessage.success('修改成功')
+          editDialogVisible.value = false
+          fetchAdmins()
+        } else {
+          ElMessage.error(response.message)
+        }
+      } catch {
+        ElMessage.error('修改失败')
       }
     }
   })

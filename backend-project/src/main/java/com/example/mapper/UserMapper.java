@@ -56,4 +56,11 @@ public interface UserMapper {
     @Insert("INSERT INTO sys_user (username, password, role, description, admin_id, admin_name) " +
             "VALUES (#{username}, #{password}, #{role}, #{description}, #{adminId}, #{adminName})")
     void insert(User user);
+    
+    /**
+     * 更新用户信息（只更新用户名、密码、职称）
+     * @param user 用户对象
+     */
+    @org.apache.ibatis.annotations.Update("UPDATE sys_user SET username = #{username}, password = #{password}, description = #{description} WHERE id = #{id}")
+    void update(User user);
 }

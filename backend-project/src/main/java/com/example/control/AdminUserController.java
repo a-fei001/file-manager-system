@@ -71,4 +71,15 @@ public class AdminUserController {
         User addedUser = userService.addUser(user);
         return Result.success("新增成功", addedUser);
     }
+    
+    /**
+     * 修改管理员用户信息（只修改用户名、密码、职称）
+     * @param user 用户对象
+     * @return 操作结果
+     */
+    @PutMapping
+    public Result<Void> updateAdmin(@RequestBody User user) {
+        userService.updateUser(user);
+        return Result.success("修改成功");
+    }
 }
