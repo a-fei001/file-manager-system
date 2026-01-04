@@ -34,6 +34,10 @@ http.interceptors.request.use(config => {
     }
   }
   
+  if (config.data instanceof FormData) {
+    delete config.headers['Content-Type']
+  }
+  
   return config
 }, e => Promise.reject(e))
 
