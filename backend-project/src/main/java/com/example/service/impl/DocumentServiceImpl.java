@@ -7,7 +7,9 @@ import com.example.service.DocumentService;
 import com.example.vo.DocumentVO;
 import com.example.vo.PageResult;
 import io.minio.MinioClient;
+import io.minio.GetObjectArgs;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,8 +83,25 @@ public class DocumentServiceImpl implements DocumentService {
         return documentMapper.findById(id);
     }
     
+    @Transactional
     @Override
     public void deleteById(Long id) {
+        Document document = documentMapper.findById(id);
+        if (document == null) {
+            throw new RuntimeException("文档不存在");
+        }
+        
+        try {
+            minioClient.removeObject(
+                RemoveObjectArgs.builder()
+                    .bucket(document.getBucketName())
+                    .object(document.getObjectKey())
+                    .build()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("删除MinIO文件失败: " + e.getMessage());
+        }
+        
         documentMapper.deleteById(id);
     }
     
@@ -99,6 +118,25 @@ public class DocumentServiceImpl implements DocumentService {
         params.put("offset", offset);
         
         return PageResult.of(total, documentMapper.findByCondition(params));
+    }
+    
+    @Override
+    public InputStream download(Long id) {
+        Document document = documentMapper.findById(id);
+        if (document == null) {
+            throw new RuntimeException("文档不存在");
+        }
+        
+        try {
+            return minioClient.getObject(
+                GetObjectArgs.builder()
+                    .bucket(document.getBucketName())
+                    .object(document.getObjectKey())
+                    .build()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("下载文件失败: " + e.getMessage());
+        }
     }
     
     /**

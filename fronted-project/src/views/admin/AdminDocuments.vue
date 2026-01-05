@@ -230,8 +230,26 @@ const handleView = async (row) => {
   }
 }
 
-const handleDownload = (row) => {
-  ElMessage.info('下载功能待实现')
+const handleDownload = async (row) => {
+  try {
+    const response = await http.get(`/admin/document/download/${row.id}`, {
+      responseType: 'blob'
+    })
+    
+    const blob = new Blob([response])
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = row.fileName
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+    
+    ElMessage.success('下载成功')
+  } catch {
+    ElMessage.error('下载失败')
+  }
 }
 
 const handleDelete = async (id) => {

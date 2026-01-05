@@ -31,10 +31,6 @@
         <el-icon><Document /></el-icon>
         <template #title>文档管理</template>
       </el-menu-item>
-      <el-menu-item index="/admin/logs">
-        <el-icon><DocumentCopy /></el-icon>
-        <template #title>日志管理</template>
-      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -42,7 +38,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { HomeFilled, User, UserFilled, Document, DocumentCopy } from '@element-plus/icons-vue'
+import { HomeFilled, User, UserFilled, Document } from '@element-plus/icons-vue'
 
 const route = useRoute()
 

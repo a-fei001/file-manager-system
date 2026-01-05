@@ -5,6 +5,8 @@ import com.example.vo.DocumentVO;
 import com.example.vo.PageResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
+
 /**
  * 文档服务接口
  * @description 提供文档管理相关业务逻辑
@@ -42,4 +44,11 @@ public interface DocumentService {
      * @return 分页结果
      */
     PageResult<DocumentVO> findByPage(String fileName, String fileType, Integer pageNum, Integer pageSize);
+    
+    /**
+     * 根据ID下载文档
+     * @param id 文档ID
+     * @return 文件输入流
+     */
+    InputStream download(Long id);
 }

@@ -8,8 +8,15 @@ import com.example.service.DocumentService;
 import com.example.util.ThreadLocalUtil;
 import com.example.vo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 文档管理控制器
@@ -82,5 +89,31 @@ public class DocumentController {
     public Result<Void> deleteById(@PathVariable Long id) {
         documentService.deleteById(id);
         return Result.success("删除成功");
+    }
+    
+    /**
+     * 根据ID下载文档
+     * @param id 文档ID
+     * @return 文件响应
+     */
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> download(@PathVariable Long id) {
+        Document document = documentService.findById(id);
+        if (document == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        try (InputStream inputStream = documentService.download(id)) {
+            byte[] bytes = inputStream.readAllBytes();
+            
+            String encodedFileName = URLEncoder.encode(document.getFileName(), StandardCharsets.UTF_8);
+            
+            return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(bytes);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

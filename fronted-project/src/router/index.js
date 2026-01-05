@@ -36,10 +36,6 @@ const router = createRouter({
         {
           path: 'documents',
           component: () => import('../views/admin/AdminDocuments.vue')
-        },
-        {
-          path: 'logs',
-          component: () => import('../views/admin/AdminLogs.vue')
         }
       ]
     }

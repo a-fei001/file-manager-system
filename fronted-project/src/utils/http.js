@@ -48,6 +48,10 @@ http.interceptors.request.use(config => {
  * @returns {Object} 响应数据
  */
 http.interceptors.response.use(res => {
+  if (res.config.responseType === 'blob') {
+    return res.data
+  }
+  
   const { code, message } = res.data
   
   if (code === 200) {
