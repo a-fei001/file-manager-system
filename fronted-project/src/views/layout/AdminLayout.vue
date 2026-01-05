@@ -20,6 +20,7 @@ import LayoutNavi from './LayoutNavi.vue'
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #f5f7fa;
 }
 
 .admin-layout-body {
@@ -31,6 +32,6 @@ import LayoutNavi from './LayoutNavi.vue'
 .admin-content {
   flex: 1;
   overflow-y: auto;
-  background-color: #f5f5f5;
+  background-color: #f5f7fa;
 }
 </style>

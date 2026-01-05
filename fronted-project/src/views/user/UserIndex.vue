@@ -159,7 +159,7 @@ onMounted(() => {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f5f5f5;
+  background-color: #f5f7fa;
 }
 
 .content-container {
@@ -176,7 +176,7 @@ onMounted(() => {
   margin-bottom: 24px;
   align-items: center;
   background: #ffffff;
-  padding: 20px;
+  padding: 24px;
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -184,6 +184,20 @@ onMounted(() => {
 .filter-input {
   flex: 1;
   max-width: 300px;
+}
+
+.filter-input :deep(.el-input__wrapper) {
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #e5e7eb inset;
+  transition: all 0.2s ease-out;
+}
+
+.filter-input :deep(.el-input__wrapper:hover) {
+  box-shadow: 0 0 0 1px #6366f1 inset;
+}
+
+.filter-input :deep(.el-input__wrapper.is-focus) {
+  box-shadow: 0 0 0 1px #1e40af inset;
 }
 
 .table-section {
@@ -205,6 +219,8 @@ onMounted(() => {
 
 :deep(.el-table th) {
   background-color: #f9fafb;
+  color: #24292e;
+  font-weight: 600;
 }
 
 :deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
@@ -217,5 +233,11 @@ onMounted(() => {
 
 :deep(.el-button--text) {
   padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease-out;
+}
+
+:deep(.el-button--text:hover) {
+  background-color: #f3f4f6;
 }
 </style>

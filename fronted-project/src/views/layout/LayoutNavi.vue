@@ -10,9 +10,9 @@
     <el-menu
       :default-active="activeMenu"
       :collapse="isCollapsed"
-      background-color="#001529"
-      text-color="#fff"
-      active-text-color="#409eff"
+      background-color="#ffffff"
+      text-color="#24292e"
+      active-text-color="#1e40af"
       router
     >
       <el-menu-item index="/admin/home">
@@ -55,10 +55,11 @@ const toggleCollapse = () => {
 .layout-navi {
   width: 200px;
   height: 100%;
-  background-color: #001529;
-  transition: width 0.3s;
+  background-color: #ffffff;
+  transition: width 0.2s ease-out;
   display: flex;
   flex-direction: column;
+  border-right: 1px solid #e5e7eb;
 }
 
 .layout-navi.is-collapsed {
@@ -66,16 +67,16 @@ const toggleCollapse = () => {
 }
 
 .navi-toggle {
-  height: 60px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
   cursor: pointer;
-  color: #fff;
-  transition: all 0.3s;
-  background-color: #1f2937;
-  border-bottom: 1px solid #304156;
+  color: #24292e;
+  transition: all 0.2s ease-out;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
   font-size: 18px;
   padding-left: 20px;
 }
@@ -86,13 +87,30 @@ const toggleCollapse = () => {
 }
 
 .navi-toggle:hover {
-  background-color: #409eff;
-  color: #fff;
+  background-color: #f9fafb;
+  color: #1e40af;
 }
 
 .el-menu {
   border-right: none;
   flex: 1;
   border-left: none;
+}
+
+:deep(.el-menu-item) {
+  border-radius: 6px;
+  margin: 4px 8px;
+  transition: all 0.2s ease-out;
+}
+
+:deep(.el-menu-item:hover) {
+  background-color: #f9fafb;
+  color: #1e40af;
+}
+
+:deep(.el-menu-item.is-active) {
+  background-color: #eff6ff;
+  color: #1e40af;
+  font-weight: 500;
 }
 </style>

@@ -44,31 +44,49 @@ const handleLogout = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0 20px;
+  height: 64px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 0 24px;
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .head-left {
   font-size: 20px;
-  font-weight: bold;
-  color: #303133;
+  font-weight: 600;
+  color: #24292e;
+  letter-spacing: -0.02em;
 }
 
 .head-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .user-info {
   font-size: 14px;
-  color: #606266;
+  color: #24292e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .role-text {
-  margin-left: 5px;
-  color: #409eff;
+  color: #6b7280;
+  opacity: 0.65;
+  font-size: 13px;
+}
+
+:deep(.el-button--danger) {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+}
+
+:deep(.el-button--danger:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15);
 }
 </style>

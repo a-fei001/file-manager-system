@@ -252,5 +252,92 @@ onMounted(() => {
 <style scoped>
 .admin-page {
   padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header-actions {
+  margin-bottom: 24px;
+}
+
+:deep(.el-button--primary) {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease-out;
+}
+
+:deep(.el-button--primary:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.15);
+}
+
+:deep(.el-table) {
+  font-size: 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+:deep(.el-table th) {
+  background-color: #f9fafb;
+  color: #24292e;
+  font-weight: 600;
+}
+
+:deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
+  background-color: #f9fafb;
+}
+
+:deep(.el-table__body tr:hover > td) {
+  background-color: #f3f4f6 !important;
+}
+
+:deep(.el-button--text) {
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease-out;
+}
+
+:deep(.el-button--text:hover) {
+  background-color: #f3f4f6;
+}
+
+:deep(.el-dialog) {
+  border-radius: 12px;
+}
+
+:deep(.el-dialog__header) {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+:deep(.el-dialog__body) {
+  padding: 24px;
+}
+
+:deep(.el-dialog__footer) {
+  padding: 16px 24px 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+:deep(.el-form-item__label) {
+  font-size: 14px;
+  font-weight: 500;
+  color: #24292e;
+  line-height: 1.65;
+}
+
+:deep(.el-input__wrapper) {
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #e5e7eb inset;
+  transition: all 0.2s ease-out;
+}
+
+:deep(.el-input__wrapper:hover) {
+  box-shadow: 0 0 0 1px #6366f1 inset;
+}
+
+:deep(.el-input__wrapper.is-focus) {
+  box-shadow: 0 0 0 1px #1e40af inset;
 }
 </style>
