@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.DocumentMapper">
+    
+    <select id="countByCondition" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM sys_document
+        <where>
+            <if test="fileName != null and fileName != ''">
+                AND file_name LIKE CONCAT('%', #{fileName}, '%')
+            </if>
+            <if test="fileType != null and fileType != ''">
+                AND file_type = #{fileType}
+            </if>
+        </where>
+    </select>
+    
+    <select id="findByCondition" resultType="com.example.vo.DocumentVO">
+        SELECT id, file_name AS fileName, file_type AS fileType, bucket_name AS bucketName,
+               object_key AS objectKey, admin_id AS adminId, admin_name AS adminName, create_time AS createTime
+        FROM sys_document
+        <where>
+            <if test="fileName != null and fileName != ''">
+                AND file_name LIKE CONCAT('%', #{fileName}, '%')
+            </if>
+            <if test="fileType != null and fileType != ''">
+                AND file_type = #{fileType}
+            </if>
+        </where>
+        ORDER BY create_time ASC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+</mapper>
