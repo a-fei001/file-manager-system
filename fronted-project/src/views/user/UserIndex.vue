@@ -25,6 +25,17 @@
             <el-icon><Document /></el-icon>
           </template>
         </el-input>
+        <el-input
+          v-model="queryParams.adminName"
+          placeholder="管理员名称"
+          clearable
+          class="filter-input"
+          @clear="handleSearch"
+        >
+          <template #prefix>
+            <el-icon><User /></el-icon>
+          </template>
+        </el-input>
         <el-button type="primary" @click="handleSearch">搜索</el-button>
       </div>
       
@@ -67,13 +78,14 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Search, Document } from '@element-plus/icons-vue'
+import { Search, Document, User } from '@element-plus/icons-vue'
 import http from '@/utils/http'
 import LayoutHead from '@/views/layout/LayoutHead.vue'
 
 const queryParams = ref({
   fileName: '',
   fileType: '',
+  adminName: '',
   pageNum: 1,
   pageSize: 10
 })

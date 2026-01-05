@@ -14,11 +14,12 @@ public interface UserDocService {
      * 分页查询文档列表
      * @param fileName 文件名（模糊查询）
      * @param fileType 文件类型
+     * @param adminName 管理员名称（模糊查询）
      * @param pageNum 页码（从1开始）
      * @param pageSize 每页大小
      * @return 分页结果
      */
-    PageResult<DocumentVO> findByPage(String fileName, String fileType, Integer pageNum, Integer pageSize);
+    PageResult<DocumentVO> findByPage(String fileName, String fileType, String adminName, Integer pageNum, Integer pageSize);
     
     /**
      * 根据ID下载文档

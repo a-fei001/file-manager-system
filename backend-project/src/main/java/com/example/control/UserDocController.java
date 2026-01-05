@@ -33,6 +33,7 @@ public class UserDocController {
      * 分页查询文档列表
      * @param fileName 文件名（模糊查询）
      * @param fileType 文件类型
+     * @param adminName 管理员名称（模糊查询）
      * @param pageNum 页码（从1开始）
      * @param pageSize 每页大小
      * @return 分页结果
@@ -41,9 +42,10 @@ public class UserDocController {
     public Result<PageResult> findByPage(
             @RequestParam(required = false) String fileName,
             @RequestParam(required = false) String fileType,
+            @RequestParam(required = false) String adminName,
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-        PageResult pageResult = userDocService.findByPage(fileName, fileType, pageNum, pageSize);
+        PageResult pageResult = userDocService.findByPage(fileName, fileType, adminName, pageNum, pageSize);
         return Result.success("查询成功", pageResult);
     }
     

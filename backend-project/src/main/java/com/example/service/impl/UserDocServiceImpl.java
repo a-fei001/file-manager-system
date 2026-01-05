@@ -33,10 +33,11 @@ public class UserDocServiceImpl implements UserDocService {
     private MinioClient minioClient;
     
     @Override
-    public PageResult<DocumentVO> findByPage(String fileName, String fileType, Integer pageNum, Integer pageSize) {
+    public PageResult<DocumentVO> findByPage(String fileName, String fileType, String adminName, Integer pageNum, Integer pageSize) {
         Map<String, Object> params = new HashMap<>();
         params.put("fileName", fileName);
         params.put("fileType", fileType);
+        params.put("adminName", adminName);
         
         Long total = userDocMapper.countByCondition(params);
         
